@@ -5,7 +5,7 @@ using Bl.Financial.Size.Sample.Application.ValueObject;
 namespace Bl.Financial.Size.Sample.Application.Command.CreateNf;
 
 public record CreateNfRequest(
-    int Number,
+    long Number,
     long CompanyId,
     decimal Value,
     DateOnly DueDate)

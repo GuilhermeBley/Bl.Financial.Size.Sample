@@ -6,5 +6,6 @@ public abstract class FinancialContext : DbContext
 {
     public DbSet<NfModel> Nfs { get; set; }
     public DbSet<CompanyModel> Companies { get; set; }
+    public DbSet<NfAnticipationModel> Anticipations { get; set; }
 
 }

@@ -6,13 +6,17 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Bl.Financial.Size.Sample.Server.Migrations
 {
     /// <inheritdoc />
-    public partial class initialm : Migration
+    public partial class intialmg : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.EnsureSchema(
+                name: "sizetest");
+
             migrationBuilder.CreateTable(
                 name: "Anticipations",
+                schema: "sizetest",
                 columns: table => new
                 {
                     Id = table.Column<long>(type: "BIGINT", nullable: false)
@@ -29,6 +33,7 @@ namespace Bl.Financial.Size.Sample.Server.Migrations
 
             migrationBuilder.CreateTable(
                 name: "Companies",
+                schema: "sizetest",
                 columns: table => new
                 {
                     Id = table.Column<long>(type: "BIGINT", nullable: false)
@@ -45,6 +50,7 @@ namespace Bl.Financial.Size.Sample.Server.Migrations
 
             migrationBuilder.CreateTable(
                 name: "Nfs",
+                schema: "sizetest",
                 columns: table => new
                 {
                     Id = table.Column<long>(type: "BIGINT", nullable: false)
@@ -62,12 +68,14 @@ namespace Bl.Financial.Size.Sample.Server.Migrations
 
             migrationBuilder.CreateIndex(
                 name: "IX_Companies_Cnpj",
+                schema: "sizetest",
                 table: "Companies",
                 column: "Cnpj",
                 unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_Nfs_UniqueId",
+                schema: "sizetest",
                 table: "Nfs",
                 column: "UniqueId",
                 unique: true);
@@ -77,13 +85,16 @@ namespace Bl.Financial.Size.Sample.Server.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Anticipations");
+                name: "Anticipations",
+                schema: "sizetest");
 
             migrationBuilder.DropTable(
-                name: "Companies");
+                name: "Companies",
+                schema: "sizetest");
 
             migrationBuilder.DropTable(
-                name: "Nfs");
+                name: "Nfs",
+                schema: "sizetest");
         }
     }
 }

@@ -12,14 +12,15 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Bl.Financial.Size.Sample.Server.Migrations
 {
     [DbContext(typeof(SqlFinancialContext))]
-    [Migration("20251109124745_initial-m")]
-    partial class initialm
+    [Migration("20251109175923_intialmg")]
+    partial class intialmg
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
+                .HasDefaultSchema("sizetest")
                 .HasAnnotation("ProductVersion", "8.0.21")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
@@ -53,7 +54,7 @@ namespace Bl.Financial.Size.Sample.Server.Migrations
                     b.HasIndex("Cnpj")
                         .IsUnique();
 
-                    b.ToTable("Companies");
+                    b.ToTable("Companies", "sizetest");
                 });
 
             modelBuilder.Entity("Bl.Financial.Size.Sample.Application.Model.NfAnticipationModel", b =>
@@ -78,7 +79,7 @@ namespace Bl.Financial.Size.Sample.Server.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Anticipations");
+                    b.ToTable("Anticipations", "sizetest");
                 });
 
             modelBuilder.Entity("Bl.Financial.Size.Sample.Application.Model.NfModel", b =>
@@ -110,7 +111,7 @@ namespace Bl.Financial.Size.Sample.Server.Migrations
                     b.HasIndex("UniqueId")
                         .IsUnique();
 
-                    b.ToTable("Nfs");
+                    b.ToTable("Nfs", "sizetest");
                 });
 #pragma warning restore 612, 618
         }

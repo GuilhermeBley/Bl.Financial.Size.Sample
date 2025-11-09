@@ -1,4 +1,5 @@
 using Bl.Financial.Size.Sample.Application.Repository;
+using Bl.Financial.Size.Sample.Server.Endpoints;
 using Bl.Financial.Size.Sample.Server.Repository;
 using Microsoft.EntityFrameworkCore;
 
@@ -10,6 +11,12 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 builder.Services.AddDbContext<FinancialContext, SqlFinancialContext>();
+
+builder.Services.AddMediatR(cfg =>
+{
+    cfg.RegisterServicesFromAssembly(
+        typeof(Bl.Financial.Size.Sample.Application.Command.CreateCompany.CreateCompanyHandler).Assembly);
+});
 
 var app = builder.Build();
 
@@ -26,6 +33,10 @@ if (app.Environment.IsDevelopment())
 {
     await TryApplyMigrationsAsync(app.Services);
 }
+
+app.UseMiddleware<CoreExceptionMiddleware>();
+
+app.MapFinancialEndpoints();
 
 await app.RunAsync();
 

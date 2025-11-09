@@ -27,7 +27,7 @@ public class SqlFinancialContext : FinancialContext
     {
         base.OnModelCreating(modelBuilder);
 
-        modelBuilder.HasDefaultSchema("size_2025_11");
+        modelBuilder.HasDefaultSchema("sizetest");
 
         modelBuilder.Entity<CompanyModel>(b =>
         {

@@ -1,5 +1,6 @@
 using Bl.Financial.Size.Sample.Application.Repository;
 using Bl.Financial.Size.Sample.Server.Repository;
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -21,29 +22,29 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
-var summaries = new[]
+if (app.Environment.IsDevelopment())
 {
-    "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
-};
+    await TryApplyMigrationsAsync(app.Services);
+}
 
-app.MapGet("/weatherforecast", () =>
+await app.RunAsync();
+
+
+async Task TryApplyMigrationsAsync(IServiceProvider provider)
 {
-    var forecast =  Enumerable.Range(1, 5).Select(index =>
-        new WeatherForecast
-        (
-            DateOnly.FromDateTime(DateTime.Now.AddDays(index)),
-            Random.Shared.Next(-20, 55),
-            summaries[Random.Shared.Next(summaries.Length)]
-        ))
-        .ToArray();
-    return forecast;
-})
-.WithName("GetWeatherForecast")
-.WithOpenApi();
+    var logger = provider.GetRequiredService<ILogger<Program>>();
+    try
+    {
+        await using var scope = provider.CreateAsyncScope();
 
-app.Run();
+        var ctx  = scope.ServiceProvider.GetRequiredService<FinancialContext>();
 
-record WeatherForecast(DateOnly Date, int TemperatureC, string? Summary)
-{
-    public int TemperatureF => 32 + (int)(TemperatureC / 0.5556);
+        await ctx.Database.MigrateAsync();
+
+        await ctx.Database.EnsureCreatedAsync();
+    }
+    catch (Exception ex)
+    {
+        logger.LogError(ex, "Failed to apply migrations, check your sql connection string.");
+    }
 }

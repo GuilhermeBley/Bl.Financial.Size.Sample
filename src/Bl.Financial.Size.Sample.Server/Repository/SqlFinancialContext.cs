@@ -19,7 +19,6 @@ public class SqlFinancialContext : FinancialContext
             _connectionString,
             config =>
             {
-                config.EnableRetryOnFailure(5);
             });
     }
 
@@ -89,6 +88,9 @@ public class SqlFinancialContext : FinancialContext
             b.Property(x => x.NfId)
                 .HasColumnType("BIGINT")
                 .IsRequired();
+            b.Property(x => x.CompanyId)
+                .HasColumnType("BIGINT")
+                .IsRequired();
             b.Property(x => x.Desagio)
                 .HasColumnType("DECIMAL(19, 4)")
                 .IsRequired();
@@ -98,6 +100,8 @@ public class SqlFinancialContext : FinancialContext
             b.Property(x => x.TotalValue)
                 .HasColumnType("DECIMAL(19, 4)")
                 .IsRequired();
+
+            b.HasIndex(b => b.NfId).IsUnique();
         });
     }
 }

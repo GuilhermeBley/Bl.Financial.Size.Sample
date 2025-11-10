@@ -1,6 +1,8 @@
 using Bl.Financial.Size.Sample.Application.Repository;
 using Bl.Financial.Size.Sample.Server.Endpoints;
 using Bl.Financial.Size.Sample.Server.Repository;
+using Bl.Financial.Size.Sample.Server.Seed;
+using MediatR;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -32,6 +34,7 @@ app.UseHttpsRedirection();
 if (app.Environment.IsDevelopment())
 {
     await TryApplyMigrationsAsync(app.Services);
+    await app.Services.TryAddFakeCompany();
 }
 
 app.UseMiddleware<CoreExceptionMiddleware>();
@@ -39,7 +42,6 @@ app.UseMiddleware<CoreExceptionMiddleware>();
 app.MapFinancialEndpoints();
 
 await app.RunAsync();
-
 
 async Task TryApplyMigrationsAsync(IServiceProvider provider)
 {

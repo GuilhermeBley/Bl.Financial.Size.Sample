@@ -47,7 +47,7 @@ internal class AddCartAnticipationHandler
             .FirstOrDefaultAsync(cancellationToken);
 
         if (nf == null)
-            throw new CoreException(404, "Company not found");
+            throw new CoreException(404, "NF not found");
 
         var companyInfo = await _financialContext
             .Companies
@@ -79,7 +79,7 @@ internal class AddCartAnticipationHandler
             .Anticipations
             .AddAsync(new Model.NfAnticipationModel()
             {
-                Desagio = desagio,
+                Desagio = nf.Value - desagio,
                 LiquidValue = desagio,
                 TotalValue = nf.Value,
                 NfId = nf.Id,

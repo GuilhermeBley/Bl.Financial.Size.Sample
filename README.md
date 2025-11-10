@@ -39,11 +39,13 @@ git clone https://github.com/GuilhermeBley/Bl.Financial.Size.Sample.git
 cd src/Bl.Financial.Size.Sample.Server
 ```
 
-#### Insira as user-secrets
-Pega a `connection string` do seu banco SQL Server e troque pelo valor `<sql_connectionstring>` no seguinte comando: 
+#### Insira as connection strings
+Verifique a `connection string` do seu banco SQL Server e troque pelo valor `<sql_connectionstring>` no seguinte comando: 
 ```bash
 dotnet user-secrets set "ConnectionStrings:SqlServer" "<sql_connectionstring>"
 ```
+
+ou vá até o arquivo `appsettings.json` e substitua o valor do campo `ConnectionStrings:SqlServer`
 
 #### Restaure as dependências
 ```bash

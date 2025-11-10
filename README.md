@@ -20,6 +20,29 @@ Gerenciamento de antecipação de recebíveis de NFs, podendo ter N empresas par
 ![Entity Framework](https://img.shields.io/badge/Entity_Framework-512BD4?style=for-the-badge&logo=dotnet&logoColor=white)
 ![SQL Server 16.0](https://img.shields.io/badge/SQL_Server-CC2927?style=for-the-badge&logo=microsoft-sql-server&logoColor=white)
 
+## 🏗️ Estrutura do Projeto
+
+### 📁 `src/Bl.Financial.Size.Sample.Application` 🧠
+**Camada de Regras de Negócio** - Contém toda a lógica empresarial sem dependências de infraestrutura
+
+| Pasta | Emoji | Descrição |
+|-------|-------|-----------|
+| **Command** | ⚡️ | Operações de consulta e gerenciamento de dados, processamento das regras de negócio |
+| **Model** | 📊 | Modelos de banco de dados e classes auxiliares para os commands |
+| **Repository** | 💾 | DbContext e interfaces de repositórios para abstração do banco de dados |
+| **ValueObject** | 🧮 | Objetos de valor reutilizáveis sem dependências externas |
+
+### 📁 `src/Bl.Financial.Size.Sample.Server` 🌐
+**Camada de Apresentação e Infraestrutura** - Expõe a API e gerencia a persistência
+
+| Pasta | Emoji | Descrição |
+|-------|-------|-----------|
+| **Endpoints** | 🛣️ | Implementação dos endpoints usando Minimal APIs |
+| **Migrations** | 🗃️ | Controle de versionamento e modelagem do banco de dados |
+| **Model** | 📋 | Modelos auxiliares específicos para os endpoints (DTOs, ViewModels) |
+| **Repository** | 🗄️ | Implementações concretas dos repositórios definidos na Application |
+| **Seed** | 🌱 | Dados iniciais executados durante o startup da aplicação |
+
 ### ⚙️ Pré-requisitos
 - [.NET 8 SDK](https://dotnet.microsoft.com/download/dotnet/8.0)
 - [SQL Server](https://www.microsoft.com/en-us/sql-server/sql-server-downloads) ou [Docker](https://www.docker.com/)
